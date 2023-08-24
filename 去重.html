@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>去重操作</title>
+</head>
+<body>
+
+</body>
+<script>
+    let arr = [{id: 1,name: '张三'},{name: '张三',id: 1},{id: 2,name: '里斯'},{id: 2,name: '里斯'}]
+
+    // 1、 利用Set去重 利用map属性进行对象与字符串的转换
+    // let uniqueArr = [...new Set(arr.map(JSON.stringify))].map(JSON.parse);
+
+
+    // 2、 利用find+reduce 先查询后去重
+     const uniqueArr = arr.reduce((newArr, obj) => {
+         //  find查找是否有该选项（利用JSON.stringify实现对比）
+         //  \\`${item.id}+${item.name}`按照需求进行修改\\
+         const existingObj = newArr.find((item) => JSON.stringify(`${item.id}+${item.name}`) === JSON.stringify(`${obj.id}+${item.name}`));
+         //  判断如果没有选项就执行push到新数组
+         if (!existingObj) {
+            newArr.push(obj);
+         }
+         return newArr;
+     }, []);
+    console.log(uniqueArr);
+
+</script>
+</html>
